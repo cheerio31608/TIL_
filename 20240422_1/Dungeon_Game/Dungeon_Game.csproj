@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A66AD1D-EE7E-497D-BD82-399DEA957823}</ProjectGuid>
+    <ProjectGuid>{60DD38C0-646D-4D66-9E58-F0F151DEAC1D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_20240422_3</RootNamespace>
-    <AssemblyName>20240422_3</AssemblyName>
+    <RootNamespace>Dungeon_Game</RootNamespace>
+    <AssemblyName>Dungeon_Game</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,7 +36,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Snakegame.cs" />
+    <Compile Include="Text_Dungeon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
