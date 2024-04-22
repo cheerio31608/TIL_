@@ -1,0 +1,7 @@
+E:\TeamSparta\20240422_1\20240422_1\bin\Debug\20240422_1.exe.config
+E:\TeamSparta\20240422_1\20240422_1\bin\Debug\20240422_1.exe
+E:\TeamSparta\20240422_1\20240422_1\bin\Debug\20240422_1.pdb
+E:\TeamSparta\20240422_1\20240422_1\obj\Debug\20240422_1.csproj.AssemblyReference.cache
+E:\TeamSparta\20240422_1\20240422_1\obj\Debug\20240422_1.csproj.CoreCompileInputs.cache
+E:\TeamSparta\20240422_1\20240422_1\obj\Debug\20240422_1.exe
+E:\TeamSparta\20240422_1\20240422_1\obj\Debug\20240422_1.pdb
