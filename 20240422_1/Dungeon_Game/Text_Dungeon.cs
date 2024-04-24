@@ -287,7 +287,7 @@ namespace Dungeon_Game
             Console.WriteLine("[아이템 목록]");
             foreach (var item in items)
             {
-                Console.WriteLine($"- {item.Name} | {item.Type} {item.Stat} | {item.Read} | {item.priceGold}");;
+                Console.WriteLine($"- {item.Name} | {item.Type} {item.Stat} | {item.Read} | {item.PriceGold}");;
             }
             Console.WriteLine("");
             Able_turn();
@@ -326,7 +326,7 @@ namespace Dungeon_Game
             int number = 1;
             foreach (var item in items)
             {
-                Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} | {item.priceGold}");
+                Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} | {item.PriceGold}");
                 number++;
             }
             Console.WriteLine("0. 나가기");
@@ -395,8 +395,8 @@ namespace Dungeon_Game
         string Read { get; } //아이템 설명
         string Type { get; } //아이템 타입
         string Stat { get; } //아이템 스탯
-        int price { get; } //아이템 가격
-        string priceGold { get; }
+        int Price { get; } //아이템 가격
+        string PriceGold { get; }
         bool Buied { get; }
         bool Equiped { get; }
 
@@ -412,9 +412,9 @@ namespace Dungeon_Game
         public string Read => "수련에 도움을 주는 갑옷입니다.";
         public string Type => "방어력";
         public string Stat => "+5";
-        public int price => 500;
+        public int Price => 500;
         public string priceG = "500G";
-        public string priceGold => priceG;
+        public string PriceGold => priceG;
         
         public bool isBuied = false;
         public bool Buied => isBuied;
@@ -426,13 +426,13 @@ namespace Dungeon_Game
         {
             if (!isBuied)
             {
-                if(status.gold < price)
+                if(status.gold < Price)
                 {
                     Console.WriteLine("Gold가 부족합니다.");
                 }
                 else
                 {
-                    status.gold -= price;
+                    status.gold -= Price;
                     Console.WriteLine("구매를 완료했습니다.");
                     priceG = "구매완료";
                     isBuied = true;
@@ -469,9 +469,9 @@ namespace Dungeon_Game
         public string Read => "무쇠로 만들어져 튼튼한 갑옷입니다.";
         public string Type => "방어력";
         public string Stat => "+9";
-        public int price => 1000;
+        public int Price => 1000;
         public string priceG = "1000G";
-        public string priceGold => priceG;
+        public string PriceGold => priceG;
         public bool isBuied = false;
         public bool Buied => isBuied;
         public bool isEquiped = false;
@@ -481,13 +481,13 @@ namespace Dungeon_Game
         {
             if (!isBuied)
             {
-                if (status.gold < price)
+                if (status.gold < Price)
                 {
                     Console.WriteLine("Gold가 부족합니다.");
                 }
                 else
                 {
-                    status.gold -= price;
+                    status.gold -= Price;
                     Console.WriteLine("구매를 완료했습니다.");
                     priceG = "구매완료";
                     isBuied = true;
@@ -523,9 +523,9 @@ namespace Dungeon_Game
         public string Read => "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.";
         public string Type => "방어력";
         public string Stat => "+15";
-        public int price => 1500;
+        public int Price => 1500;
         public string priceG = "1500G";
-        public string priceGold => priceG;
+        public string PriceGold => priceG;
         public bool isBuied = false;
         public bool Buied => isBuied;
         public bool isEquiped = false;
@@ -533,13 +533,14 @@ namespace Dungeon_Game
         public void Buy(Status status)
         {
             if (!isBuied)
-            {if (status.gold < price)
+            {
+                if (status.gold < Price)
                 {
                     Console.WriteLine("Gold가 부족합니다.");
                 }
                 else
                 {
-                    status.gold -= price;
+                    status.gold -= Price;
                     Console.WriteLine("구매를 완료했습니다.");
                     priceG = "구매완료";
                     isBuied = true;
@@ -575,9 +576,9 @@ namespace Dungeon_Game
         public string Read => "쉽게 볼 수 있는 낡은 검 입니다. ";
         public string Type => "공격력";
         public string Stat => "+2";
-        public int price => 500;
+        public int Price => 500;
         public string priceG = "500G";
-        public string priceGold => priceG;
+        public string PriceGold => priceG;
         public bool isBuied = false;
         public bool Buied => isBuied;
         public bool isEquiped = false;
@@ -587,13 +588,13 @@ namespace Dungeon_Game
         {
             if (!isBuied)
             {
-                if (status.gold < price)
+                if (status.gold < Price)
                 {
                     Console.WriteLine("Gold가 부족합니다.");
                 }
                 else
                 {
-                    status.gold -= price;
+                    status.gold -= Price;
                     Console.WriteLine("구매를 완료했습니다.");
                     priceG = "구매완료";
                     isBuied = true;
@@ -629,9 +630,9 @@ namespace Dungeon_Game
         public string Read => "어디선가 사용됐던거 같은 도끼입니다. ";
         public string Type => "공격력";
         public string Stat => "+5";
-        public int price => 1000;
+        public int Price => 1000;
         public string priceG = "1000G";
-        public string priceGold => priceG;
+        public string PriceGold => priceG;
         public bool isBuied = false;
         public bool Buied => isBuied;
         public bool isEquiped = false;
@@ -640,13 +641,13 @@ namespace Dungeon_Game
         {
             if (!isBuied)
             {
-                if (status.gold < price)
+                if (status.gold < Price)
                 {
                     Console.WriteLine("Gold가 부족합니다.");
                 }
                 else
                 {
-                    status.gold -= price;
+                    status.gold -= Price;
                     Console.WriteLine("구매를 완료했습니다.");
                     priceG = "구매완료";
                     isBuied = true;
@@ -682,9 +683,9 @@ namespace Dungeon_Game
         public string Read => "스파르타의 전사들이 사용했다는 전설의 창입니다.";
         public string Type => "공격력";
         public string Stat => "+7";
-        public int price => 1500;
+        public int Price => 1500;
         public string priceG = "1500G";
-        public string priceGold => priceG;
+        public string PriceGold => priceG;
         public bool isBuied = false;
         public bool Buied => isBuied;
         public bool isEquiped = false;
@@ -693,13 +694,13 @@ namespace Dungeon_Game
         {
             if (!isBuied)
             {
-                if (status.gold < price)
+                if (status.gold < Price)
                 {
                     Console.WriteLine("Gold가 부족합니다.");
                 }
                 else
                 {
-                    status.gold -= price;
+                    status.gold -= Price;
                     Console.WriteLine("구매를 완료했습니다.");
                     priceG = "구매완료";
                     isBuied = true;
