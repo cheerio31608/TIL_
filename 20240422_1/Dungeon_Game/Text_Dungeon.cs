@@ -342,27 +342,27 @@ namespace Dungeon_Game
                         Show_Shop(start, status, inventory, shop);
                         break;
                     case "1":
-                        items[0].Buy();
+                        items[0].Buy(status);
                         Buy_Item(start, status, inventory, shop);
                         break;
                     case "2":
-                        items[1].Buy(); 
+                        items[1].Buy(status); 
                         Buy_Item(start, status, inventory, shop);
                         break;
                     case "3":
-                        items[2].Buy();
+                        items[2].Buy(status);
                         Buy_Item(start, status, inventory, shop);
                         break;
                     case "4":
-                        items[3].Buy();
+                        items[3].Buy(status);
                         Buy_Item(start, status, inventory, shop);
                         break;
                     case "5":
-                        items[4].Buy();
+                        items[4].Buy(status);
                         Buy_Item(start, status, inventory, shop);
                         break;
                     case "6":
-                        items[5].Buy();
+                        items[5].Buy(status);
                         Buy_Item(start, status, inventory, shop);
                         break;
                     default:
@@ -400,7 +400,7 @@ namespace Dungeon_Game
         bool Buied { get; }
         bool Equiped { get; }
 
-        void Buy(); //아이템을 구매하는 메서드 
+        void Buy(Status status); //아이템을 구매하는 메서드 
         void Equip(Status status); //아이템을 장착하는 메서드
     }
 
@@ -422,13 +422,22 @@ namespace Dungeon_Game
         public bool Equiped => isBuied;
 
 
-        public void Buy()
+        public void Buy(Status status)
         {
             if (!isBuied)
             {
-                Console.WriteLine("구매를 완료했습니다.");
-                priceG = "구매완료";
-                isBuied = true;
+                if(status.gold < price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
+                
             }
             else
             {
@@ -468,13 +477,21 @@ namespace Dungeon_Game
         public bool isEquiped = false;
         public bool Equiped => isBuied;
 
-        public void Buy()
+        public void Buy(Status status)
         {
             if (!isBuied)
             {
-                Console.WriteLine("구매를 완료했습니다.");
-                priceG = "구매완료";
-                isBuied = true;
+                if (status.gold < price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
             }
             else
             {
@@ -513,13 +530,20 @@ namespace Dungeon_Game
         public bool Buied => isBuied;
         public bool isEquiped = false;
         public bool Equiped => isBuied;
-        public void Buy()
+        public void Buy(Status status)
         {
             if (!isBuied)
-            {
-                Console.WriteLine("구매를 완료했습니다.");
-                priceG = "구매완료";
-                isBuied = true;
+            {if (status.gold < price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
             }
             else
             {
@@ -559,13 +583,21 @@ namespace Dungeon_Game
         public bool isEquiped = false;
         public bool Equiped => isBuied;
 
-        public void Buy()
+        public void Buy(Status status)
         {
             if (!isBuied)
             {
-                Console.WriteLine("구매를 완료했습니다.");
-                priceG = "구매완료";
-                isBuied = true;
+                if (status.gold < price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
             }
             else
             {
@@ -604,13 +636,21 @@ namespace Dungeon_Game
         public bool Buied => isBuied;
         public bool isEquiped = false;
         public bool Equiped => isBuied;
-        public void Buy()
+        public void Buy(Status status)
         {
             if (!isBuied)
             {
-                Console.WriteLine("구매를 완료했습니다.");
-                priceG = "구매완료";
-                isBuied = true;
+                if (status.gold < price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
             }
             else
             {
@@ -649,13 +689,21 @@ namespace Dungeon_Game
         public bool Buied => isBuied;
         public bool isEquiped = false;
         public bool Equiped => isBuied;
-        public void Buy()
+        public void Buy(Status status)
         {
             if (!isBuied)
             {
-                Console.WriteLine("구매를 완료했습니다.");
-                priceG = "구매완료";
-                isBuied = true;
+                if (status.gold < price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
             }
             else
             {
