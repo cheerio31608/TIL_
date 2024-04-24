@@ -15,7 +15,7 @@ namespace Dungeon_Game
 
             Start start = new Start();
             Status status = new Status();
-            Inventory inventory = new Inventory();
+            Inventory inventory = new Inventory(shopitem);
             Shop shop = new Shop(shopitem);
             start.Start_Scene(status, inventory, shop);
             
@@ -132,9 +132,10 @@ namespace Dungeon_Game
 
     class Inventory
     {
-        public Inventory()
+        public List<IItem> items;
+        public Inventory(List<IItem> sitems)
         {
-
+            this.items = sitems;
         }
 
         public void Show_Inventory(Start start, Status status, Inventory inventory, Shop shop)
@@ -144,6 +145,11 @@ namespace Dungeon_Game
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine("");
             Console.WriteLine("[아이템 목록]");
+            foreach (var item in items)
+            {
+                if(item.Buied)
+                    Console.WriteLine($"- {item.Name} | {item.Type} {item.Stat} | {item.Read} "); ;
+            }
             Able_turn();
             string turn = Console.ReadLine();
             while (true)
@@ -183,21 +189,61 @@ namespace Dungeon_Game
             Console.WriteLine("인벤토리 - 장착 관리");
             Console.WriteLine("");
             Console.WriteLine("[아이템 목록]");
+            int number = 1;
+            foreach (var item in items)
+            {
+                if (item.Buied)
+                {
+                    Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} ");
+                    number++;
+                }
+                    
+            }
             Console.WriteLine("");
-            Able_turn();
+
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("아이템 번호. 아이템 장착");
+            Console.WriteLine("");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.Write(">>");
             string turn = Console.ReadLine();
             while (true)
             {
-                if (turn == "0")
+                switch (turn)
                 {
-                    this.Show_Inventory(start, status, inventory, shop);
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다!");
-                    Able_turn();
-                    turn = Console.ReadLine();
+                    case "0":
+                        Show_Inventory(start, status, inventory, shop);
+                        break;
+                    case "1":
+                        items[0].Equip();
+                        Equip_Item(start, status, inventory, shop);
+                        break;
+                    case "2":
+                        items[1].Equip();
+                        Equip_Item(start, status, inventory, shop);
+                        break;
+                    case "3":
+                        items[2].Equip();
+                        Equip_Item(start, status, inventory, shop);
+                        break;
+                    case "4":
+                        items[3].Equip();
+                        Equip_Item(start, status, inventory, shop);
+                        break;
+                    case "5":
+                        items[4].Equip();
+                        Equip_Item(start, status, inventory, shop);
+                        break;
+                    case "6":
+                        items[5].Equip();
+                        Equip_Item(start, status, inventory, shop); ;
+                        break;
+                    default:
+                        Console.WriteLine("잘못된 입력입니다!");
+                        Console.Write(">>");
+                        turn = Console.ReadLine();
+                        break;
+
                 }
             }
 
@@ -207,7 +253,7 @@ namespace Dungeon_Game
 
     class Shop
     {
-        private List<IItem> items;
+        public List<IItem> items;
         public Shop(List<IItem> sitems)
         {
             this.items = sitems;
@@ -335,6 +381,8 @@ namespace Dungeon_Game
         string Stat { get; } //아이템 스탯
         int price { get; } //아이템 가격
         string priceGold { get; }
+        bool Buied { get; }
+        bool Equiped { get; }
 
         void Buy(); //아이템을 구매하는 메서드 
         void Equip(); //아이템을 장착하는 메서드
@@ -343,133 +391,263 @@ namespace Dungeon_Game
     //수련자 갑옷 클래스
     public class StartArmor:IItem
     {
-        public string Name => "수련자 갑옷";
+        public string IName = "수련자 갑옷";
+        public string Name => IName;
         public string Read => "수련에 도움을 주는 갑옷입니다.";
         public string Type => "방어력";
         public string Stat => "+5";
         public int price => 500;
-        public string priceGold => price + "G";
- 
+        public string priceG = "500G";
+        public string priceGold => priceG;
+        
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
+
 
         public void Buy()
         {
-            Console.WriteLine("1번 아이템 구매");
+            if (!isBuied)
+            {
+                Console.WriteLine("구매를 완료했습니다.");
+                priceG = "구매완료";
+                isBuied = true;
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
         }
         public void Equip()
         {
-
+            if (!isEquiped)
+            {
+                IName = "[E]수련자 갑옷";
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "수련자 갑옷";
+                isEquiped = false;
+            }
         }
     }
 
     //무쇠 갑옷 클래스
     public class IronArmor : IItem
     {
-        public string Name => "무쇠 갑옷";
+        public string IName = "무쇠 갑옷";
+        public string Name => IName;
         public string Read => "무쇠로 만들어져 튼튼한 갑옷입니다.";
         public string Type => "방어력";
         public string Stat => "+9";
         public int price => 1000;
-        public string priceGold => price + "G";
-
-
+        public string priceG = "1000G";
+        public string priceGold => priceG;
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
 
         public void Buy()
         {
-            Console.WriteLine("2번 아이템 구매");
-
+            if (!isBuied)
+            {
+                Console.WriteLine("구매를 완료했습니다.");
+                priceG = "구매완료";
+                isBuied = true;
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
         }
         public void Equip()
         {
-
+            if (!isEquiped)
+            {
+                IName = "[E]무쇠 갑옷";
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "무쇠 갑옷";
+                isEquiped = false;
+            }
         }
     }
 
     //스파르타의 갑옷 클래스
     public class SpartaArmor : IItem
     {
-        public string Name => "스파르타의 갑옷";
+        public string IName = "스파르타의 갑옷";
+        public string Name => IName;
         public string Read => "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.";
         public string Type => "방어력";
         public string Stat => "+15";
         public int price => 1500;
-        public string priceGold => price + "G";
-
-
+        public string priceG = "1500G";
+        public string priceGold => priceG;
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
         public void Buy()
         {
-            Console.WriteLine("3번 아이템 구매");
-            
+            if (!isBuied)
+            {
+                Console.WriteLine("구매를 완료했습니다.");
+                priceG = "구매완료";
+                isBuied = true;
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
         }
         public void Equip()
         {
-
+            if (!isEquiped)
+            {
+                IName = "[E]스파르타의 갑옷";
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "스파르타의 갑옷";
+                isEquiped = false;
+            }
         }
     }
 
     //낡은 검 클래스
     public class BadSword : IItem
     {
-        public string Name => "낡은 검";
+        public string IName = "낡은 검";
+        public string Name => IName;
         public string Read => "쉽게 볼 수 있는 낡은 검 입니다. ";
         public string Type => "공격력";
         public string Stat => "+2";
         public int price => 500;
-        public string priceGold => price + "G";
-
-
+        public string priceG = "500G";
+        public string priceGold => priceG;
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
 
         public void Buy()
         {
-            Console.WriteLine("4번 아이템 구매");
-
+            if (!isBuied)
+            {
+                Console.WriteLine("구매를 완료했습니다.");
+                priceG = "구매완료";
+                isBuied = true;
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
         }
         public void Equip()
         {
-
+            if (!isEquiped)
+            {
+                IName = "[E]낡은 검";
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "낡은 검";
+                isEquiped = false;
+            }
         }
     }
 
     //청동 도끼 클래스
     public class Axe : IItem
     {
-        public string Name => "청동 도끼";
+        public string IName = "청동 도끼";
+        public string Name => IName;
         public string Read => "어디선가 사용됐던거 같은 도끼입니다. ";
         public string Type => "공격력";
         public string Stat => "+5";
         public int price => 1000;
-        public string priceGold => price + "G";
-
-
+        public string priceG = "1000G";
+        public string priceGold => priceG;
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
         public void Buy()
         {
-            Console.WriteLine("5번 아이템 구매");
-
+            if (!isBuied)
+            {
+                Console.WriteLine("구매를 완료했습니다.");
+                priceG = "구매완료";
+                isBuied = true;
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
         }
         public void Equip()
         {
-
+            if (!isEquiped)
+            {
+                IName = "[E]청동 도끼";
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "청동 도끼";
+                isEquiped = false;
+            }
         }
     }
 
     //스파르타의 창 클래스
     public class SpartaSpear : IItem
     {
-        public string Name => "스파르타의 창";
+        public string IName = "스파르타의 창";
+        public string Name => IName;
         public string Read => "스파르타의 전사들이 사용했다는 전설의 창입니다.";
         public string Type => "공격력";
         public string Stat => "+7";
         public int price => 1500;
-        public string priceGold => price + "G";
-
-
+        public string priceG = "1500G";
+        public string priceGold => priceG;
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
         public void Buy()
         {
-            Console.WriteLine("6번 아이템 구매");
-
+            if (!isBuied)
+            {
+                Console.WriteLine("구매를 완료했습니다.");
+                priceG = "구매완료";
+                isBuied = true;
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
         }
         public void Equip()
         {
-
+            if (!isEquiped)
+            {
+                IName = "[E]스파르타의 창";
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "스파르타의 창";
+                isEquiped = false;
+            }
         }
     }
 
