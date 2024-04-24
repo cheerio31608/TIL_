@@ -74,11 +74,11 @@ namespace Dungeon_Game
 
     public class Status
     {
-        int level;
-        string chad;
-        int power;
-        int defence;
-        int health;
+        private int level;
+        private string chad;
+        private int power;
+        private int defence;
+        private int health;
         public int gold;
         public Status()
         {
@@ -199,13 +199,13 @@ namespace Dungeon_Game
             Console.WriteLine("인벤토리 - 장착 관리");
             Console.WriteLine("");
             Console.WriteLine("[아이템 목록]");
-            int number = 1;
+            int number = 0;
             foreach (var item in items)
             {
                 if (item.Buied)
                 {
-                    Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} ");
                     number++;
+                    Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} ");
                 }
                     
             }
@@ -219,6 +219,12 @@ namespace Dungeon_Game
             string turn = Console.ReadLine();
             while (true)
             {
+                while (int.Parse(turn) > number)
+                {
+                    Console.WriteLine("잘못된 입력입니다!");
+                    Console.Write(">>");
+                    turn = Console.ReadLine();
+                }
                 switch (turn)
                 {
                     case "0":
