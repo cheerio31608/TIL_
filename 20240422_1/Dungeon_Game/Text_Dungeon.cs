@@ -23,7 +23,7 @@ namespace Dungeon_Game
         }
     }
 
-    class Start
+    public class Start
     {
         public Start()
         {
@@ -72,7 +72,7 @@ namespace Dungeon_Game
         }
     }
 
-    class Status
+    public class Status
     {
         int level;
         string chad;
@@ -88,6 +88,16 @@ namespace Dungeon_Game
             defence = 5;
             health = 100;
             gold = 1500;
+        }
+
+        public void Get_Power(int pow)
+        {
+            power += pow;
+        }
+
+        public void Get_Defence(int def)
+        {
+            defence += def;
         }
 
         public void Show_Status(Start start, Status status, Inventory inventory, Shop shop)
@@ -130,7 +140,7 @@ namespace Dungeon_Game
     }
 
 
-    class Inventory
+    public class Inventory
     {
         public List<IItem> items;
         public Inventory(List<IItem> sitems)
@@ -215,27 +225,27 @@ namespace Dungeon_Game
                         Show_Inventory(start, status, inventory, shop);
                         break;
                     case "1":
-                        items[0].Equip();
+                        items[0].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
                     case "2":
-                        items[1].Equip();
+                        items[1].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
                     case "3":
-                        items[2].Equip();
+                        items[2].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
                     case "4":
-                        items[3].Equip();
+                        items[3].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
                     case "5":
-                        items[4].Equip();
+                        items[4].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
                     case "6":
-                        items[5].Equip();
+                        items[5].Equip(status);
                         Equip_Item(start, status, inventory, shop); ;
                         break;
                     default:
@@ -251,7 +261,7 @@ namespace Dungeon_Game
     }
 
 
-    class Shop
+    public class Shop
     {
         public List<IItem> items;
         public Shop(List<IItem> sitems)
@@ -385,7 +395,7 @@ namespace Dungeon_Game
         bool Equiped { get; }
 
         void Buy(); //아이템을 구매하는 메서드 
-        void Equip(); //아이템을 장착하는 메서드
+        void Equip(Status status); //아이템을 장착하는 메서드
     }
 
     //수련자 갑옷 클래스
@@ -419,16 +429,18 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
-        public void Equip()
+        public void Equip(Status status)
         {
             if (!isEquiped)
             {
                 IName = "[E]수련자 갑옷";
+                status.Get_Defence(int.Parse(Stat));
                 isEquiped = true;
             }
             else
             {
                 IName = "수련자 갑옷";
+                status.Get_Defence(-int.Parse(Stat));
                 isEquiped = false;
             }
         }
@@ -463,16 +475,18 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
-        public void Equip()
+        public void Equip(Status status)
         {
             if (!isEquiped)
             {
                 IName = "[E]무쇠 갑옷";
+                status.Get_Defence(int.Parse(Stat));
                 isEquiped = true;
             }
             else
             {
                 IName = "무쇠 갑옷";
+                status.Get_Defence(-int.Parse(Stat));
                 isEquiped = false;
             }
         }
@@ -506,16 +520,18 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
-        public void Equip()
+        public void Equip(Status status)
         {
             if (!isEquiped)
             {
                 IName = "[E]스파르타의 갑옷";
+                status.Get_Defence(int.Parse(Stat));
                 isEquiped = true;
             }
             else
             {
                 IName = "스파르타의 갑옷";
+                status.Get_Defence(-int.Parse(Stat));
                 isEquiped = false;
             }
         }
@@ -550,16 +566,18 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
-        public void Equip()
+        public void Equip(Status status)
         {
             if (!isEquiped)
             {
                 IName = "[E]낡은 검";
+                status.Get_Power(int.Parse(Stat));
                 isEquiped = true;
             }
             else
             {
                 IName = "낡은 검";
+                status.Get_Power(-int.Parse(Stat));
                 isEquiped = false;
             }
         }
@@ -593,16 +611,18 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
-        public void Equip()
+        public void Equip(Status status)
         {
             if (!isEquiped)
             {
                 IName = "[E]청동 도끼";
+                status.Get_Power(int.Parse(Stat));
                 isEquiped = true;
             }
             else
             {
                 IName = "청동 도끼";
+                status.Get_Power(-int.Parse(Stat));
                 isEquiped = false;
             }
         }
@@ -636,16 +656,18 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
-        public void Equip()
+        public void Equip(Status status)
         {
             if (!isEquiped)
             {
                 IName = "[E]스파르타의 창";
+                status.Get_Power(int.Parse(Stat));
                 isEquiped = true;
             }
             else
             {
                 IName = "스파르타의 창";
+                status.Get_Power(-int.Parse(Stat));
                 isEquiped = false;
             }
         }
