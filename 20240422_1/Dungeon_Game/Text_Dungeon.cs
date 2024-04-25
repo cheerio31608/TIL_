@@ -11,7 +11,7 @@ namespace Dungeon_Game
 
         static void Main(string[] args)
         {
-            List<IItem> shopitem = new List<IItem> { new StartArmor(), new IronArmor(), new SpartaArmor(), new BadSword(), new Axe(), new SpartaSpear() };
+            List<IItem> shopitem = new List<IItem> { new StartArmor(), new IronArmor(), new SpartaArmor(), new BadSword(), new Axe(), new SpartaSpear(), new HealthRing() };
 
             Start start = new Start();
             Status status = new Status();
@@ -98,6 +98,10 @@ namespace Dungeon_Game
         public void Get_Defence(int def)
         {
             defence += def;
+        }
+        public void Get_Health(int hel)
+        {
+            defence += hel;
         }
 
         public void Show_Status(Start start, Status status, Inventory inventory, Shop shop)
@@ -200,14 +204,18 @@ namespace Dungeon_Game
             Console.WriteLine("");
             Console.WriteLine("[아이템 목록]");
             int number = 0;
+            int listnum = 1;
+            List<int> numlist = new List<int>();
+            numlist.Add(0);
             foreach (var item in items)
             {
                 if (item.Buied)
                 {
                     number++;
                     Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} ");
+                    numlist.Add(listnum);
                 }
-                    
+                listnum++;
             }
             Console.WriteLine("");
 
@@ -216,48 +224,53 @@ namespace Dungeon_Game
             Console.WriteLine("");
             Console.WriteLine("원하시는 행동을 입력해주세요");
             Console.Write(">>");
-            string turn = Console.ReadLine();
+            int turn = int.Parse(Console.ReadLine());
+            while (turn > number)
+            {
+                Console.WriteLine("잘못된 입력입니다!!!");
+                Console.Write(">>");
+                turn = int.Parse(Console.ReadLine());
+            }
             while (true)
             {
-                while (int.Parse(turn) > number)
+                int turn1 = numlist[turn];
+                switch (turn1)
                 {
-                    Console.WriteLine("잘못된 입력입니다!");
-                    Console.Write(">>");
-                    turn = Console.ReadLine();
-                }
-                switch (turn)
-                {
-                    case "0":
+                    case 0:
                         Show_Inventory(start, status, inventory, shop);
                         break;
-                    case "1":
+                    case 1:
                         items[0].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
-                    case "2":
+                    case 2:
                         items[1].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
-                    case "3":
+                    case 3:
                         items[2].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
-                    case "4":
+                    case 4:
                         items[3].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
-                    case "5":
+                    case 5:
                         items[4].Equip(status);
                         Equip_Item(start, status, inventory, shop);
                         break;
-                    case "6":
+                    case 6:
                         items[5].Equip(status);
+                        Equip_Item(start, status, inventory, shop); ;
+                        break;
+                    case 7:
+                        items[6].Equip(status);
                         Equip_Item(start, status, inventory, shop); ;
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다!");
                         Console.Write(">>");
-                        turn = Console.ReadLine();
+                        turn = int.Parse(Console.ReadLine());
                         break;
 
                 }
@@ -302,6 +315,11 @@ namespace Dungeon_Game
                 else if (turn == "1")
                 {
                     Buy_Item(start, status, inventory, shop);
+                    break;
+                }
+                else if (turn == "2")
+                {
+                    Sell_Item(start, status, inventory, shop);
                     break;
                 }
                 else
@@ -365,6 +383,10 @@ namespace Dungeon_Game
                         items[5].Buy(status);
                         Buy_Item(start, status, inventory, shop);
                         break;
+                    case "7":
+                        items[6].Buy(status);
+                        Buy_Item(start, status, inventory, shop);
+                        break;
                     default:
                         Console.WriteLine("잘못된 입력입니다!");
                         Console.Write(">>");
@@ -377,9 +399,92 @@ namespace Dungeon_Game
             }
         }
 
+        public void Sell_Item(Start start, Status status, Inventory inventory, Shop shop)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("상점 - 아이템 판매");
+            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+            Console.WriteLine("");
+            Console.WriteLine("[보유 골드]");
+            Console.WriteLine($"{status.gold} G");
+            Console.WriteLine("");
+            Console.WriteLine("[아이템 목록]");
+            int number = 0;
+            int listnum = 1;
+            List<int> numlist = new List<int>();
+            numlist.Add(0);
+            foreach (var item in items)
+            {
+                if (item.Buied)
+                {
+                    number++;
+                    Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} ");
+                    numlist.Add(listnum);
+                }
+                listnum++;
+            }
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("아이템 번호. 아이템 판매");
+            Console.WriteLine("");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.Write(">>");
+            int turn = int.Parse(Console.ReadLine());
+            while (turn > number)
+            {
+                Console.WriteLine("잘못된 입력입니다!");
+                Console.Write(">>");
+                turn = int.Parse(Console.ReadLine());
+            }
+            while (true)
+            {
+                int turn1 = numlist[turn];
+                switch (turn1)
+                {
+                    case 0:
+                        Show_Shop(start, status, inventory, shop);
+                        break;
+                    case 1:
+                        items[0].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    case 2:
+                        items[1].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    case 3:
+                        items[2].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    case 4:
+                        items[3].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    case 5:
+                        items[4].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    case 6:
+                        items[5].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    case 7:
+                        items[6].Sell(status);
+                        Sell_Item(start, status, inventory, shop);
+                        break;
+                    default:
+                        Console.WriteLine("잘못된 입력입니다!");
+                        Console.Write(">>");
+                        turn = int.Parse(Console.ReadLine());
+                        break;
+
+                }
+            }
+        }
+
         void Able_turn()
         {
             Console.WriteLine("");
+            Console.WriteLine("2. 아이템 판매");
             Console.WriteLine("1. 아이템 구매");
             Console.WriteLine("0. 나가기");
             Console.WriteLine("");
@@ -401,6 +506,7 @@ namespace Dungeon_Game
         bool Equiped { get; }
 
         void Buy(Status status); //아이템을 구매하는 메서드 
+        void Sell(Status status); //아이템을 판매하는 메서드
         void Equip(Status status); //아이템을 장착하는 메서드
     }
 
@@ -443,6 +549,17 @@ namespace Dungeon_Game
             {
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
+        }
+
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
+            }           
         }
         public void Equip(Status status)
         {
@@ -498,6 +615,16 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
+            }
+        }
         public void Equip(Status status)
         {
             if (!isEquiped)
@@ -549,6 +676,16 @@ namespace Dungeon_Game
             else
             {
                 Console.WriteLine("이미 구매한 아이템입니다.");
+            }
+        }
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
             }
         }
         public void Equip(Status status)
@@ -605,6 +742,20 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
+            }
+            else
+            {
+                Console.WriteLine("가지고 있는 아이템이 아닙니다!");
+            }
+        }
         public void Equip(Status status)
         {
             if (!isEquiped)
@@ -658,6 +809,20 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
+            }
+            else
+            {
+                Console.WriteLine("가지고 있는 아이템이 아닙니다!");
+            }
+        }
         public void Equip(Status status)
         {
             if (!isEquiped)
@@ -673,7 +838,9 @@ namespace Dungeon_Game
                 isEquiped = false;
             }
         }
+
     }
+
 
     //스파르타의 창 클래스
     public class SpartaSpear : IItem
@@ -711,6 +878,16 @@ namespace Dungeon_Game
                 Console.WriteLine("이미 구매한 아이템입니다.");
             }
         }
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
+            }
+        }
         public void Equip(Status status)
         {
             if (!isEquiped)
@@ -728,6 +905,67 @@ namespace Dungeon_Game
         }
     }
 
-
+    //체력의 반지 클래스
+    public class HealthRing : IItem
+    {
+        public string IName = "체력의 반지";
+        public string Name => IName;
+        public string Read => "반지 1개로는 아쉽지만 10개를 전부 모은다면?";
+        public string Type => "체력";
+        public string Stat => "+2";
+        public int Price => 150;
+        public string priceG = "150G";
+        public string PriceGold => priceG;
+        public bool isBuied = false;
+        public bool Buied => isBuied;
+        public bool isEquiped = false;
+        public bool Equiped => isBuied;
+        public void Buy(Status status)
+        {
+            if (!isBuied)
+            {
+                if (status.gold < Price)
+                {
+                    Console.WriteLine("Gold가 부족합니다.");
+                }
+                else
+                {
+                    status.gold -= Price;
+                    Console.WriteLine("구매를 완료했습니다.");
+                    priceG = "구매완료";
+                    isBuied = true;
+                }
+            }
+            else
+            {
+                Console.WriteLine("이미 구매한 아이템입니다.");
+            }
+        }
+        public void Sell(Status status)
+        {
+            if (isBuied)
+            {
+                status.gold += (int)(Price * 0.85);
+                Console.WriteLine("판매를 완료했습니다. ");
+                isBuied = false;
+                if (isEquiped) Equip(status);
+            }
+        }
+        public void Equip(Status status)
+        {
+            if (!isEquiped)
+            {
+                IName = "[E]체력의 반지";
+                status.Get_Health(int.Parse(Stat));
+                isEquiped = true;
+            }
+            else
+            {
+                IName = "체력의 반지";
+                status.Get_Health(-int.Parse(Stat));
+                isEquiped = false;
+            }
+        }
+    }
 
 }
