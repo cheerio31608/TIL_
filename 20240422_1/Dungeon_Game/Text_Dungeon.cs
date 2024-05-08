@@ -211,7 +211,7 @@ namespace Dungeon_Game
             {
                 if (item.Buied)
                 {
-                    number++;
+                    number++; //int number = 0;
                     Console.WriteLine($"- {number} {item.Name} | {item.Type} {item.Stat} | {item.Read} ");
                     numlist.Add(listnum);
                 }
